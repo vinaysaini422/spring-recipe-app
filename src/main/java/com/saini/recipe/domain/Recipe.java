@@ -1,5 +1,6 @@
 package com.saini.recipe.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -19,123 +20,123 @@ import javax.persistence.OneToOne;
 @Entity
 public class Recipe {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String description;
-    private Integer prepTime;
-    private Integer cookTime;
-    private Integer servings;
-    private String source;
-    private String url;
-    private String directions;
-    
-    @Enumerated(value = EnumType.STRING)
-    private Difficulty difficulty;
+	private String description;
+	private Integer prepTime;
+	private Integer cookTime;
+	private Integer servings;
+	private String source;
+	private String url;
+	
+	@Lob
+	private String directions;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+	@Enumerated(value = EnumType.STRING)
+	private Difficulty difficulty;
 
-    @Lob
-    private Byte[] image;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+	private Set<Ingredient> ingredients =new HashSet<Ingredient>();
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Notes notes;
+	@Lob
+	private Byte[] image;
 
-    @ManyToMany
-    @JoinTable(name="recipe_category", 
-    		joinColumns = @JoinColumn(name ="recipe_id"), 
-    		inverseJoinColumns =@JoinColumn(name="category_id"))
-    private Set<Category> categories;
-    
-    public Long getId() {
-        return id;
-    }
+	@OneToOne(cascade = CascadeType.ALL)
+	private Notes notes;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@ManyToMany
+	@JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+	private Set<Category> categories =new HashSet<Category>();
 
-    public String getDescription() {
-        return description;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Integer getPrepTime() {
-        return prepTime;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setPrepTime(Integer prepTime) {
-        this.prepTime = prepTime;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public Integer getCookTime() {
-        return cookTime;
-    }
+	public Integer getPrepTime() {
+		return prepTime;
+	}
 
-    public void setCookTime(Integer cookTime) {
-        this.cookTime = cookTime;
-    }
+	public void setPrepTime(Integer prepTime) {
+		this.prepTime = prepTime;
+	}
 
-    public Integer getServings() {
-        return servings;
-    }
+	public Integer getCookTime() {
+		return cookTime;
+	}
 
-    public void setServings(Integer servings) {
-        this.servings = servings;
-    }
+	public void setCookTime(Integer cookTime) {
+		this.cookTime = cookTime;
+	}
 
-    public String getSource() {
-        return source;
-    }
+	public Integer getServings() {
+		return servings;
+	}
 
-    public void setSource(String source) {
-        this.source = source;
-    }
+	public void setServings(Integer servings) {
+		this.servings = servings;
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	public String getSource() {
+		return source;
+	}
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+	public void setSource(String source) {
+		this.source = source;
+	}
 
-    public String getDirections() {
-        return directions;
-    }
+	public String getUrl() {
+		return url;
+	}
 
-    public void setDirections(String directions) {
-        this.directions = directions;
-    }
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
-    public Byte[] getImage() {
-        return image;
-    }
+	public String getDirections() {
+		return directions;
+	}
 
-    public void setImage(Byte[] image) {
-        this.image = image;
-    }
+	public void setDirections(String directions) {
+		this.directions = directions;
+	}
 
-    public Notes getNotes() {
-        return notes;
-    }
+	public Byte[] getImage() {
+		return image;
+	}
 
-    public void setNotes(Notes notes) {
-        this.notes = notes;
-    }
+	public void setImage(Byte[] image) {
+		this.image = image;
+	}
 
-    public Set<Ingredient> getIngredients() {
-        return ingredients;
-    }
+	public Notes getNotes() {
+		return notes;
+	}
 
-    public void setIngredients(Set<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
+	public void setNotes(Notes notes) {
+		this.notes = notes;
+	}
+
+	public Set<Ingredient> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(Set<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
 
 	public Difficulty getDifficulty() {
 		return difficulty;
@@ -144,5 +145,13 @@ public class Recipe {
 	public void setDifficulty(Difficulty difficulty) {
 		this.difficulty = difficulty;
 	}
-    
+
+	public Set<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Set<Category> categories) {
+		this.categories = categories;
+	}
+
 }
